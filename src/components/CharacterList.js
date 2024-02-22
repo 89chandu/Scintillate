@@ -28,8 +28,15 @@ function CharacterList() {
     }
   }, []);
 
-  // Chakra UI useDisclosure hook
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Chakra UI useDisclosure hook for addition alert
+  const { isOpen: isAddAlertOpen, onOpen: onAddAlertOpen, onClose: onAddAlertClose } = useDisclosure();
+
+  // Chakra UI useDisclosure hook for removal alert
+  const {
+    isOpen: isRemoveAlertOpen,
+    onOpen: onRemoveAlertOpen,
+    onClose: onRemoveAlertClose,
+  } = useDisclosure();
 
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
@@ -44,8 +51,8 @@ function CharacterList() {
     // Save favorites to local storage
     localStorage.setItem('favorites', JSON.stringify([...favorites, character]));
 
-    // Open the popup
-    onOpen();
+    // Open the addition alert
+    onAddAlertOpen();
   };
 
   const handleRemoveFromFavorites = (character) => {
@@ -54,6 +61,9 @@ function CharacterList() {
     );
     // Save updated favorites to local storage
     localStorage.setItem('favorites', JSON.stringify([...favorites.filter(fav => fav !== character)]));
+
+    // Open the removal alert
+    onRemoveAlertOpen();
   };
 
   const handleTabChange = (selectedTab) => {
@@ -159,28 +169,65 @@ function CharacterList() {
         </Box>
       )}
 
-      {/* AlertDialog for the popup */}
+      {/* AlertDialog for the addition alert */}
+
+      
+
       <AlertDialog
-  isOpen={isOpen}
-  onClose={onClose}
-  isCentered
-  className="custom-alert-dialog"
->
-  {/* ... (existing code) */}
-  <AlertDialogContent>
-    <AlertDialogHeader className="chakra-modal__header" fontSize="lg" fontWeight="bold">
-      Added to Favorites
-    </AlertDialogHeader>
-    <AlertDialogBody className="chakra-modal__body">
-      The character has been added to your favorites.
-    </AlertDialogBody>
-    <AlertDialogFooter className="chakra-modal__footer">
-      <Button colorScheme="green" onClick={onClose} className="chakra-modal__close-btn" ml={3}>
-        Close
-      </Button>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+        isOpen={isAddAlertOpen}
+        onClose={onAddAlertClose}
+        isCentered
+        className="custom-alert-dialog"
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader className="chakra-modal__header" fontSize="lg" fontWeight="bold">
+            Added to Favorites
+          </AlertDialogHeader>
+          <AlertDialogBody className="chakra-modal__body">
+            The character has been added to your favorites.
+          </AlertDialogBody>
+          <AlertDialogFooter className="chakra-modal__footer">
+            <Button
+              colorScheme="green"
+              onClick={onAddAlertClose}
+              className="chakra-modal__close-btn"
+              ml={3}
+            >
+              Close
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+     
+      
+
+      {/* AlertDialog for the removal alert */}
+      <AlertDialog
+        isOpen={isRemoveAlertOpen}
+        onClose={onRemoveAlertClose}
+        isCentered
+        className="custom-alert-dialog"
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader className="chakra-modal__header" fontSize="lg" fontWeight="bold">
+            Removed from Favorites
+          </AlertDialogHeader>
+          <AlertDialogBody className="chakra-modal__body">
+            The character has been removed from your favorites.
+          </AlertDialogBody>
+          <AlertDialogFooter className="chakra-modal__footer">
+            <Button
+              colorScheme="green"
+              onClick={onRemoveAlertClose}
+              className="chakra-modal__close-btn"
+              ml={3}
+            >
+              Close
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Box>
   );
 }

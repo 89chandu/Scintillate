@@ -151,11 +151,12 @@
 
 /* Centering the AlertDialog */
 .chakra-modal__content {
+    
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
-    top: 8%;
+    top: 18%;
     left: 30%;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -167,8 +168,8 @@
   .chakra-modal__header,
   .chakra-modal__body,
   .chakra-modal__footer {
-    width: 50%;
-    max-width: 600px; /* You can adjust the max-width as needed */
+    width: 45%;
+    max-width: 400px; /* You can adjust the max-width as needed */
     border-radius: 8px;
     background-color: #fff;
     padding: 16px;
@@ -194,19 +195,26 @@
   }
   
   /* Styling the Close button in the AlertDialog */
+  .chakra-modal__close-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px; /* Adjust the margin as needed */
+  }
+  
   .chakra-modal__close-btn {
     font-size: 16px;
     color: #007bff;
     cursor: pointer;
-    display: block;
-    margin: 0 auto; /* Center the button horizontally */
-    padding: 10px; /* Add padding for a more button-like appearance */
-    background-color: #007bff; /* Add background color */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Add border-radius for rounded corners */
-    color: #fff; /* Set text color to white */
-    box-shadow: none; /* Remove box shadow */
+    padding: 12px;
+    margin: 0 auto;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: none;
   }
+  
   
   .chakra-modal__close-btn:hover {
     text-decoration: none;
@@ -217,3 +225,5 @@
   .chakra-modal__body p, .chakra-modal__close-btn {
     box-shadow: none;
   }
+
+  
