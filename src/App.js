@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import CharacterList from './CharacterList';
-import CharacterDetailsPage from './CharacterDetailsPage';
+import CharacterList from './components/CharacterList';
+import CharacterDetailsPage from './components/CharacterDetailsPage';
 import FavoritesPage from './FavoritesPage'; // Import the new component
 
 const queryClient = new QueryClient();

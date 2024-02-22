@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { Box, Text } from '@chakra-ui/react';
-import './CharacterDetailsPage.css';
+import '../components/styles/CharacterDetailsPage.css';
 
 
 

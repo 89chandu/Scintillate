@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { Box, Text, Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import './CharacterList.css';
+import '../components/styles/CharacterList.css';
 
 const fetchCharacters = async (page = 1) => {
   const { data } = await axios.get(`https://swapi.dev/api/people/?page=${page}`);
