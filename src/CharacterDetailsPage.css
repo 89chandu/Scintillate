@@ -1,0 +1,119 @@
+/* CharacterDetailsPage.css */
+
+body {
+    background-color: #f0f0f0;
+}
+
+.character-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh; /* Adjust as needed */
+}
+
+.character-card {
+    padding: 16px;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 16px; /* Add margin to separate the cards */
+    text-align: center; /* Center the content within the card */
+}
+
+.character-names {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #007bff;
+    border: 1px solid #b4acac;
+    border-radius: 6px;
+    margin-bottom: 60px;
+    background-color: #f0f0f0;
+    width: 70%; /* Set the desired width */
+    padding: 10px; /* Add your desired padding */
+    margin: 0 auto; /* Center horizontally */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add your desired box shadow */
+  }
+  
+
+
+.base-details{
+    text-align: center;
+}
+
+.base-details-header,
+.movies-header {
+    margin-top: 16px;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Align text to the left within the header */
+}
+
+.movie-card {
+    width: 70%;
+    margin: 0 auto; /* Add this line to center align the box */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #faf8f8;
+    /* Add any other styles you want for the card */
+  }
+
+  .basic-card{
+
+    width: 70%;
+    margin: 0 auto; /* Add this line to center align the box */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #f7f4f4;
+
+  }
+
+  .character-details-box{
+
+    width: 50%;
+    margin: 0 auto; /* Add this line to center align the box */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: center;
+    padding-bottom: 50px;
+    background-color: #e3dfdf;
+   
+
+  }
+
+ 
+  
+
+.base-details-box,
+.movies-box {
+    margin-top: 16px;
+    text-align: center; /* Align text to the left within the boxes */
+}
+
+
+.go-back-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.go-back-button:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* Add more styles as needed */
