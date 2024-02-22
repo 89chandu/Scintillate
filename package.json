@@ -2,7 +2,7 @@
   "name": "scintillate",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://89chandu.github.io/",
+  "homepage": "https://89chandu.github.io/scintillate",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@testing-library/jest-dom": "^5.17.0",
