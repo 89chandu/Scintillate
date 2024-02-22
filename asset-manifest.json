@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.6adc1ec1.css",
-    "main.js": "/static/js/main.c26faebc.js",
-    "index.html": "/index.html",
-    "main.6adc1ec1.css.map": "/static/css/main.6adc1ec1.css.map",
-    "main.c26faebc.js.map": "/static/js/main.c26faebc.js.map"
+    "main.css": "/scintillate/static/css/main.6adc1ec1.css",
+    "main.js": "/scintillate/static/js/main.c26faebc.js",
+    "index.html": "/scintillate/index.html",
+    "main.6adc1ec1.css.map": "/scintillate/static/css/main.6adc1ec1.css.map",
+    "main.c26faebc.js.map": "/scintillate/static/js/main.c26faebc.js.map"
   },
   "entrypoints": [
     "static/css/main.6adc1ec1.css",
