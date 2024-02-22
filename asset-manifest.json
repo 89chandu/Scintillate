@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Scintillate/static/css/main.6adc1ec1.css",
-    "main.js": "/Scintillate/static/js/main.c26faebc.js",
-    "index.html": "/Scintillate/index.html",
-    "main.6adc1ec1.css.map": "/Scintillate/static/css/main.6adc1ec1.css.map",
-    "main.c26faebc.js.map": "/Scintillate/static/js/main.c26faebc.js.map"
+    "main.css": "/static/css/main.6adc1ec1.css",
+    "main.js": "/static/js/main.c26faebc.js",
+    "index.html": "/index.html",
+    "main.6adc1ec1.css.map": "/static/css/main.6adc1ec1.css.map",
+    "main.c26faebc.js.map": "/static/js/main.c26faebc.js.map"
   },
   "entrypoints": [
     "static/css/main.6adc1ec1.css",
