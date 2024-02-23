@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/scintillate/static/css/main.6adc1ec1.css",
-    "main.js": "/scintillate/static/js/main.c26faebc.js",
-    "index.html": "/scintillate/index.html",
-    "main.6adc1ec1.css.map": "/scintillate/static/css/main.6adc1ec1.css.map",
-    "main.c26faebc.js.map": "/scintillate/static/js/main.c26faebc.js.map"
+    "main.css": "/Scintillate/static/css/main.8cfac938.css",
+    "main.js": "/Scintillate/static/js/main.081c8a05.js",
+    "static/media/film.png": "/Scintillate/static/media/film.8fe8689e58d7c51e452b.png",
+    "static/media/cinema3.png": "/Scintillate/static/media/cinema3.d92077e63bea23cc6ded.png",
+    "index.html": "/Scintillate/index.html",
+    "main.8cfac938.css.map": "/Scintillate/static/css/main.8cfac938.css.map",
+    "main.081c8a05.js.map": "/Scintillate/static/js/main.081c8a05.js.map"
   },
   "entrypoints": [
-    "static/css/main.6adc1ec1.css",
-    "static/js/main.c26faebc.js"
+    "static/css/main.8cfac938.css",
+    "static/js/main.081c8a05.js"
   ]
 }
