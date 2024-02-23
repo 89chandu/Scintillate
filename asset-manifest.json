@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Scintillate/static/css/main.8cfac938.css",
-    "main.js": "/Scintillate/static/js/main.081c8a05.js",
+    "main.js": "/Scintillate/static/js/main.0144ec1d.js",
     "static/media/film.png": "/Scintillate/static/media/film.8fe8689e58d7c51e452b.png",
     "static/media/cinema3.png": "/Scintillate/static/media/cinema3.d92077e63bea23cc6ded.png",
     "index.html": "/Scintillate/index.html",
     "main.8cfac938.css.map": "/Scintillate/static/css/main.8cfac938.css.map",
-    "main.081c8a05.js.map": "/Scintillate/static/js/main.081c8a05.js.map"
+    "main.0144ec1d.js.map": "/Scintillate/static/js/main.0144ec1d.js.map"
   },
   "entrypoints": [
     "static/css/main.8cfac938.css",
-    "static/js/main.081c8a05.js"
+    "static/js/main.0144ec1d.js"
   ]
 }
