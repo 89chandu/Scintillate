@@ -7,7 +7,7 @@ import CharacterDetails from './components/CharacterDetails';
 function App() {
   return (
     <Router>
-      <Routes>
+      <Routes basename="/Scintillate">
         <Route path="/" element={<CharacterList />} />
         <Route path="/character/:id" element={<CharacterDetails />} />
       </Routes>
