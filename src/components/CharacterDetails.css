@@ -1,0 +1,89 @@
+.main-bg {
+  background-image: url("/public/film.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Ensure the background covers the entire viewport height */
+  overflow: hidden; /* Hide overflow content */
+}
+
+.character-details-container {
+  max-width: 600px;
+  margin: 60px auto 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  margin-top: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  color: aliceblue;
+  background-color: rgb(15, 12, 12); 
+  padding: 20px;
+}
+
+.card:hover{
+  background-color: rgb(20, 15, 15); 
+  transform: scale(0.9);
+}
+
+.movie_title {
+  /* Add styles specifically for the first child (Movies) */
+ /* Replace with your preferred background color */
+  font-weight: bold;
+  
+  font-size: 25px;
+  padding: 10px; /* Add padding for better visibility */
+}
+
+
+
+
+.character-details-title {
+  background-color: rgb(7, 8, 9);
+  text-align: center;
+  border-radius: 7px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.character-details-item {
+  
+  margin-bottom: 10px;
+}
+
+.btn {
+  justify-content: center;
+  text-align: center;
+  color: black;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .character-details-container {
+    max-width: 100%;
+    margin-top: 30px;
+    border-radius: 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .character-details-container {
+    padding: 10px;
+  }
+}
+
+/* Background image */
+.character-details-container {
+
+ margin-top: 100px;
+  background: url('./cinema3.png');
+  background-size: cover;
+}

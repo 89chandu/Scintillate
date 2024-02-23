@@ -1,235 +1,194 @@
-// CharacterList.js
 import React, { useState, useEffect } from 'react';
-import { useQuery } from 'react-query';
-import axios from 'axios';
-import { Box, Text, Button, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import '../components/styles/CharacterList.css';
+import { Box, Text, Button } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import './CharacterList.css'; // Import the external CSS file
+import CustomModal from './CustomModal'; // Import the custom modal component
 
-const fetchCharacters = async (page = 1) => {
-  const { data } = await axios.get(`https://swapi.dev/api/people/?page=${page}`);
-  return data;
-};
+function CharactersAndFavorites() {
+    const [characters, setCharacters] = useState([]);
+    const [nextPage, setNextPage] = useState(null);
+    const [prevPage, setPrevPage] = useState(null);
+    const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
+    const [showFavorites, setShowFavorites] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalTitle, setModalTitle] = useState('');
+    const [modalMessage, setModalMessage] = useState('');
+    const navigate = useNavigate();
 
-function CharacterList() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [tab, setTab] = useState('all'); // 'all' or 'favorites'
-  const [favorites, setFavorites] = useState([]);
+    useEffect(() => {
+        fetchCharacters('https://swapi.dev/api/people/');
+    }, []);
 
-  const { data, isLoading, isError } = useQuery(['characters', currentPage], () =>
-    fetchCharacters(currentPage)
-  );
+    const fetchCharacters = async (url) => {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            setCharacters(data.results);
+            setNextPage(data.next);
+            setPrevPage(data.previous);
+        } catch (error) {
+            console.error('Error fetching characters:', error);
+        }
+    };
 
-  useEffect(() => {
-    // Load favorites from local storage
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
-  }, []);
+    const handleNextPage = () => {
+        if (nextPage) {
+            fetchCharacters(nextPage);
+        }
+    };
 
-  // Chakra UI useDisclosure hook for addition alert
-  const { isOpen: isAddAlertOpen, onOpen: onAddAlertOpen, onClose: onAddAlertClose } = useDisclosure();
+    const handlePrevPage = () => {
+        if (prevPage) {
+            fetchCharacters(prevPage);
+        }
+    };
 
-  // Chakra UI useDisclosure hook for removal alert
-  const {
-    isOpen: isRemoveAlertOpen,
-    onOpen: onRemoveAlertOpen,
-    onClose: onRemoveAlertClose,
-  } = useDisclosure();
+    const handleCharacterClick = (characterUrl) => {
+        const characterId = characterUrl.split('/').slice(-2, -1)[0];
+        navigate(`/character/${characterId}`);
+    };
 
-  const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
+    const toggleFavorite = (character) => {
+        const index = favorites.findIndex((fav) => fav.url === character.url);
+        if (index !== -1) {
+            const updatedFavorites = [...favorites.slice(0, index), ...favorites.slice(index + 1)];
+            setFavorites(updatedFavorites);
+            localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            setModalTitle('Removed successfully');
+            setModalMessage('Removed to favorite successfully');
+            setIsModalOpen(true);
+        } else {
+            const updatedFavorites = [...favorites, character];
+            setFavorites(updatedFavorites);
+            localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            setModalTitle('Added successfully');
+            setModalMessage('Added to favorite successfully');
+            setIsModalOpen(true);
+        }
+    };
 
-  const handlePrevPage = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
+    const isFavorite = (character) => {
+        return favorites.some((fav) => fav.url === character.url);
+    };
 
-  const handleAddToFavorites = (character) => {
-    setFavorites((prevFavorites) => [...prevFavorites, character]);
-    // Save favorites to local storage
-    localStorage.setItem('favorites', JSON.stringify([...favorites, character]));
+    const handleShowFavorites = () => {
+        setShowFavorites(true);
+    };
 
-    // Open the addition alert
-    onAddAlertOpen();
-  };
+    const handleShowCharacters = () => {
+        setShowFavorites(false);
+    };
 
-  const handleRemoveFromFavorites = (character) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.filter((favCharacter) => favCharacter !== character)
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <div className="background-container">
+            <Box className="character-list-container">
+                <CustomModal isOpen={isModalOpen} onClose={handleCloseModal} title={modalTitle} message={modalMessage} />
+                <div className="buttons-container">
+                    <Button className="show-all-button" id="btn2" onClick={handleShowCharacters}>
+                        Show Characters
+                    </Button>
+                    <Button className="favorites-button" id="btn2" onClick={handleShowFavorites}>
+                        Show Favorites
+                    </Button>
+                </div>
+                {showFavorites ? (
+                    <>
+                        <Text className="title character-details-title" fontSize="xl" fontWeight="bold" mb={4}>
+                            Favorite Characters
+                        </Text>
+                        <div className="character-container">
+                            {favorites.map((favorite) => (
+                                <Box
+                                    key={favorite.url}
+                                    className="character-card"
+                                    borderWidth="1px"
+                                    borderRadius="lg"
+                                    p={4}
+                                    mb={4}
+                                    onClick={() => handleCharacterClick(favorite.url)}
+                                >
+                                    <Text className="name" fontSize="lg" fontWeight="bold">
+                                        {favorite.name}
+                                    </Text>
+                                    <Text className="info">Gender: {favorite.gender}</Text>
+                                    <Text className="info">Height: {favorite.height}</Text>
+                                    <Button
+                                        className={`favorite-button remove ${isFavorite(favorite) ? 'added' : ''}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFavorite(favorite);
+                                        }}
+                                        bg="red" // Set background color to red for remove button
+                                        color="white" // Set text color to white for better visibility
+                                    >
+                                        Remove from Favorites
+                                    </Button>
+                                </Box>
+                            ))}
+                        </div>
+                        <div className="pagination">
+                            <Button className="pagination-button" id="btn" onClick={handlePrevPage} disabled={!prevPage} mr={2}>
+                                Previous
+                            </Button>
+                            <Button className="pagination-button" id="btn1" onClick={handleNextPage} disabled={!nextPage}>
+                                Next
+                            </Button>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <Text className="title character-details-title" fontSize="xl" fontWeight="bold" mb={4}>
+                            All Characters
+                        </Text>
+                        <div className="character-container">
+                            {/* Character cards */}
+                            {characters.map((character) => (
+                                <Box
+                                    key={character.name}
+                                    className="character-card"
+                                    borderWidth="1px"
+                                    borderRadius="lg"
+                                    p={2}
+                                    mb={2}
+                                    onClick={() => handleCharacterClick(character.url)}
+                                >
+                                    <Text className="name" fontSize="lg" fontWeight="bold">
+                                        {character.name}
+                                    </Text>
+                                    <Text className="info">Gender: {character.gender}</Text>
+                                    <Text className="info">Height: {character.height}</Text>
+                                    <Button
+                                        className={`favorite-button ${isFavorite(character) ? 'added' : ''}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleFavorite(character);
+                                        }}
+                                        bg={isFavorite(character) ? 'red' : 'green'} // Change background color based on favorite status
+                                        color="white" // Set text color to white for better visibility
+                                    >
+                                        {isFavorite(character) ? 'Remove from Favorites' : 'Add to Favorites'}
+                                    </Button>
+                                </Box>
+                            ))}
+                        </div>
+
+                        <div className="pagination">
+                            <Button className="pagination-button" id="btn" onClick={handlePrevPage} disabled={!prevPage} mr={2}>
+                                Previous Page
+                            </Button>
+                            <Button className="pagination-button" id="btn1" onClick={handleNextPage} disabled={!nextPage}>
+                                Next Page
+                            </Button>
+                        </div>
+                    </>
+                )}
+            </Box>
+        </div>
     );
-    // Save updated favorites to local storage
-    localStorage.setItem('favorites', JSON.stringify([...favorites.filter(fav => fav !== character)]));
-
-    // Open the removal alert
-    onRemoveAlertOpen();
-  };
-
-  const handleTabChange = (selectedTab) => {
-    setTab(selectedTab);
-  };
-
-  if (isLoading) return <Text>Loading...</Text>;
-  if (isError) return <Text>Error fetching characters</Text>;
-
-  return (
-    <Box className="character-list-container">
-      <Box mb={4}>
-        <Button
-          className="tab-button"
-          onClick={() => handleTabChange('all')}
-          colorScheme={tab === 'all' ? 'green' : 'gray'}
-        >
-          All Characters
-        </Button>
-        <Button
-          className="tab-button"
-          onClick={() => handleTabChange('favorites')}
-          colorScheme={tab === 'favorites' ? 'green' : 'gray'}
-        >
-          Favorite Characters
-        </Button>
-      </Box>
-
-      {tab === 'all' && (
-        <Box>
-          <Text fontSize="xl" fontWeight="bold" mb={4}>
-            All Characters
-          </Text>
-          {data.results.map((character) => (
-            <Box key={character.name} className="BoxCard" mb={2}>
-              <Link to={`/characters/${character.url.split('/').slice(-2, -1)}`}>
-                <Text className="character-name">
-                  {character.name}
-                </Text>
-              </Link>
-              <Text>
-                Birth Year: {character.birth_year}
-              </Text>
-              <Text>
-                Gender: {character.gender}
-              </Text>
-              
-              <Button
-                className="add-to-favorites-button"
-                onClick={() => handleAddToFavorites(character)}
-              >
-                Add to Favorites
-              </Button>
-            </Box>
-          ))}
-          <Box mt={4}>
-            <Button
-              className="pagination-button"
-              onClick={handlePrevPage}
-              disabled={!data.previous}
-            >
-              Previous Page
-            </Button>
-            <Button
-              className="pagination-button"
-              ml={2}
-              onClick={handleNextPage}
-              disabled={!data.next}
-            >
-              Next Page
-            </Button>
-          </Box>
-        </Box>
-      )}
-
-      {tab === 'favorites' && (
-        <Box>
-          <Text fontSize="xl" fontWeight="bold" mb={4}>
-            Favorite Characters
-          </Text>
-          {favorites.map((character, index) => (
-            <Box key={index} className="BoxCard" mb={2}>
-              <Link to={`/characters/${character.url.split('/').slice(-2, -1)}`}>
-                <Text className="character-name">
-                  {character.name}
-                </Text>
-              </Link>
-              <Text>
-                Birth Year: {character.birth_year}
-              </Text>
-              <Text>
-                Gender: {character.gender}
-              </Text>
-              
-              <Button
-                className="remove-from-favorites-button"
-                onClick={() => handleRemoveFromFavorites(character)}
-              >
-                Remove from Favorites
-              </Button>
-            </Box>
-          ))}
-        </Box>
-      )}
-
-      {/* AlertDialog for the addition alert */}
-
-      
-
-      <AlertDialog
-        isOpen={isAddAlertOpen}
-        onClose={onAddAlertClose}
-        isCentered
-        className="custom-alert-dialog"
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader className="chakra-modal__header" fontSize="lg" fontWeight="bold">
-            Added to Favorites
-          </AlertDialogHeader>
-          <AlertDialogBody className="chakra-modal__body">
-            The character has been added to your favorites.
-          </AlertDialogBody>
-          <AlertDialogFooter className="chakra-modal__footer">
-            <Button
-              colorScheme="green"
-              onClick={onAddAlertClose}
-              className="chakra-modal__close-btn"
-              ml={3}
-            >
-              Close
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-     
-      
-
-      {/* AlertDialog for the removal alert */}
-      <AlertDialog
-        isOpen={isRemoveAlertOpen}
-        onClose={onRemoveAlertClose}
-        isCentered
-        className="custom-alert-dialog"
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader className="chakra-modal__header" fontSize="lg" fontWeight="bold">
-            Removed from Favorites
-          </AlertDialogHeader>
-          <AlertDialogBody className="chakra-modal__body">
-            The character has been removed from your favorites.
-          </AlertDialogBody>
-          <AlertDialogFooter className="chakra-modal__footer">
-            <Button
-              colorScheme="green"
-              onClick={onRemoveAlertClose}
-              className="chakra-modal__close-btn"
-              ml={3}
-            >
-              Close
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </Box>
-  );
 }
 
-export default CharacterList;
+export default CharactersAndFavorites;
