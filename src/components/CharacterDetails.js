@@ -74,7 +74,7 @@ function CharacterDetails() {
             <Box className="main-bg">
                 <Box className="character-details-container">
                     <Text className="character-details-title">Name: {character.name}</Text>
-                    <div style={{ marginTop: '10px' }}>
+                    <div className='c-details' style={{ marginTop: '10px' }}>
                         <Text className="character-details-item" color="white">Height: {character.height}</Text>
                         <Text className="character-details-item" color="white">Mass: {character.mass}</Text>
                         <Text className="character-details-item" color="white">Hair Color: {character.hair_color}</Text>
